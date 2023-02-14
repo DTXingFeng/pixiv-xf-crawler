@@ -1,4 +1,6 @@
+import tool.Cofing;
 import xyz.xingfeng.www.pixiv.Artworks;
+import xyz.xingfeng.www.pixiv.DownloadImg;
 import xyz.xingfeng.www.pixiv.GetArtworksHtml;
 import xyz.xingfeng.www.pixiv.SouSuo;
 
@@ -6,7 +8,12 @@ public class Main {
     public static void main(String[] args) {
         //设置本地代理
         setProperty("127.0.0.1","7890");
-        new Artworks("105359936");
+        Cofing cofing = new Cofing();
+        //设置下载位置
+        cofing.setFilePath("Pixiv");
+
+        SouSuo souSuo = new SouSuo("キサキ");
+        souSuo.getJson();
 
     }
 
