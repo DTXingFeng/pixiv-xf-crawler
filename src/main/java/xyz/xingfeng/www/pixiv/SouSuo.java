@@ -49,6 +49,10 @@ public class SouSuo {
         //得到json进行处理
         JSONObject jsonObject = new JSONObject(getSouSuoJson.getJson());
         JSONArray jsonArray = jsonObject.getJSONObject("body").getJSONObject("illustManga").getJSONArray("data");
+        if (jsonArray.length() == 0){
+            //结束
+            return;
+        }
         for (int i = 0; i < jsonArray.length(); i++){
             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
             System.out.println("id:"+jsonObject1.getString("id"));
@@ -56,8 +60,6 @@ public class SouSuo {
             System.out.println("----------");
         }
         page++;
-
-
     }
 
 }

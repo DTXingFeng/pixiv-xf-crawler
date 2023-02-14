@@ -1,11 +1,12 @@
+import xyz.xingfeng.www.pixiv.Artworks;
+import xyz.xingfeng.www.pixiv.GetArtworksHtml;
 import xyz.xingfeng.www.pixiv.SouSuo;
 
 public class Main {
     public static void main(String[] args) {
         //设置本地代理
         setProperty("127.0.0.1","7890");
-        SouSuo nahida = new SouSuo("nahida");
-        nahida.getJson();
+        new Artworks("105359936");
 
     }
 
