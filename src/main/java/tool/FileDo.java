@@ -45,12 +45,17 @@ public class FileDo {
      * 
      * @return
      */
-    public void zuijia(String s) throws IOException {
-        String st = copy();
-        FileWriter w = new FileWriter(f);
-        st += s;
-        w.write(st);
-        w.close();
+    public void zuijia(String s){
+        try {
+            String st = copy();
+            FileWriter w = new FileWriter(f);
+            st += s;
+            w.write(st);
+            w.close();
+        }catch (Exception e){
+
+        }
+
     }
 
     /**
@@ -59,23 +64,27 @@ public class FileDo {
      * 有则返回行数,
      * 否则返回0
      */
-    public int duibi(String s) throws IOException {
-        int num = 0;
-        FileReader r = new FileReader(f);
-        BufferedReader b = new BufferedReader(r);
-        String st = null;
-        while ((st = b.readLine()) != null) {
-            num++;
-            if (st.equals(s)) {
-                System.out.println("文件内有一致的字符，在第" + num + "行");
-                r.close();
-                b.close();
-                return num;
+    public int duibi(String s) {
+        try {
+            int num = 0;
+            FileReader r = new FileReader(f);
+            BufferedReader b = new BufferedReader(r);
+            String st = null;
+            while ((st = b.readLine()) != null) {
+                num++;
+                if (st.equals(s)) {
+                    System.out.println("文件内有一致的字符，在第" + num + "行");
+                    r.close();
+                    b.close();
+                    return num;
+                }
             }
+            System.out.println("文件内无一致的字符");
+            r.close();
+            b.close();
+        }catch (Exception e){
+
         }
-        System.out.println("文件内无一致的字符");
-        r.close();
-        b.close();
         return 0;
     }
 

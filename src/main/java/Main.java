@@ -12,7 +12,7 @@ public class Main {
         //设置下载位置
         cofing.setFilePath("Pixiv");
 
-        SouSuo souSuo = new SouSuo("キサキ");
+        SouSuo souSuo = new SouSuo("碧蓝档案");
         souSuo.getJson();
 
     }

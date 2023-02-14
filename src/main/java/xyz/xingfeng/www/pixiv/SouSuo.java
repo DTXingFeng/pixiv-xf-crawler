@@ -2,7 +2,9 @@ package xyz.xingfeng.www.pixiv;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import tool.FileDo;
 
+import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -58,16 +60,22 @@ public class SouSuo {
                 //结束
                 break;
             }
+            FileDo data = new FileDo(new File("data"));
             for (int i = 0; i < jsonArray.length(); i++) {
+
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                 System.out.println("----------");
                 System.out.println("id:" + jsonObject1.getString("id"));
                 String id = jsonObject1.getString("id");
                 System.out.println("title:" + jsonObject1.getString("title"));
+                if (data.duibi(id) != 0){
+                    continue;
+                }
                 Artworks artworks = new Artworks(id);
-                artworks.setMinLike(50);
+                artworks.setMinLike(500);
                 artworks.screen();
                 artworks.Download();
+                data.zuijia("\n"+id);
                 try {
                     Thread.sleep((long) (((int) 1+Math.random()*(4)) * 1000));
                 } catch (InterruptedException e) {

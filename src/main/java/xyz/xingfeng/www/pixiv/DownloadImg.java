@@ -3,6 +3,7 @@ package xyz.xingfeng.www.pixiv;
 import tool.Cofing;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,21 +18,35 @@ public class DownloadImg {
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.addRequestProperty("user-agent",userAgent);
-            connection.addRequestProperty("cookie",cookie);
+            connection.addRequestProperty("user-agent", userAgent);
+            connection.addRequestProperty("cookie", cookie);
             connection.addRequestProperty("referer", "https://www.pixiv.net/");
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(20000);
             connection.setReadTimeout(20000);
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                String fileName = urlString.substring(urlString.lastIndexOf("/"));
-                InputStream inputStream = connection.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(new Cofing().getFilePath() + fileName);
-                fileOutputStream.write(inputStream.readAllBytes());
-                fileOutputStream.close();
-                inputStream.close();
+            int num = 0;
+            while (true) {
+                num++;
+                if (num >= 5) {
+                    System.out.println("重试次数过多，放弃下载");
+                    return;
+                }
+                try {
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == 200) {
+                        String fileName = urlString.substring(urlString.lastIndexOf("/"));
+                        InputStream inputStream = connection.getInputStream();
+                        FileOutputStream fileOutputStream = new FileOutputStream(new Cofing().getFilePath() + fileName);
+                        fileOutputStream.write(inputStream.readAllBytes());
+                        fileOutputStream.close();
+                        inputStream.close();
+                        break;
+                    }
+                }catch(Exception e ) {
+                    throw new RuntimeException(e);
+                }
             }
+
         }catch(Exception e){
             throw new RuntimeException(e);
         }
