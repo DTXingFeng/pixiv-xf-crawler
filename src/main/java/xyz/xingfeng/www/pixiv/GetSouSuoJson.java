@@ -7,12 +7,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GetSouSuoJson {
-    public GetSouSuoJson(String urlString){
 
+    private String json;
+
+    public GetSouSuoJson(String urlString){
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.41");
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(20000);
             connection.setReadTimeout(20000);
@@ -24,11 +25,15 @@ public class GetSouSuoJson {
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
-                System.out.println(response.toString());
+                json = response.toString();
                 reader.close();
             }
         }catch(Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    public String getJson() {
+        return json;
     }
 }

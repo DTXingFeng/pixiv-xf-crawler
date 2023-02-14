@@ -1,5 +1,8 @@
 package xyz.xingfeng.www.pixiv;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class SouSuo {
     static final String ALL = "all";
     static final String R18 = "r18";
@@ -44,6 +47,14 @@ public class SouSuo {
     public void getJson(){
         GetSouSuoJson getSouSuoJson = new GetSouSuoJson(url + page);
         //得到json进行处理
+        JSONObject jsonObject = new JSONObject(getSouSuoJson.getJson());
+        JSONArray jsonArray = jsonObject.getJSONObject("body").getJSONObject("illustManga").getJSONArray("data");
+        for (int i = 0; i < jsonArray.length(); i++){
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            System.out.println("id:"+jsonObject1.getString("id"));
+            System.out.println("title:"+jsonObject1.getString("title"));
+            System.out.println("----------");
+        }
         page++;
 
 
