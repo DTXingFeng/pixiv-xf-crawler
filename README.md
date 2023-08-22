@@ -4,6 +4,8 @@
 # 主要功能
 1.获得pixiv搜索页面的图片id  
 2.下载指定id图片至本地
+# 特色
+1.使用java开发的本地爬虫软件
 ## 搜索页api
 https://www.pixiv.net/ajax/search/artworks/ <kbd>搜索内容</kbd>?p=<kbd>页数</kbd>&s_mode=s_tag_full&mode=<kbd>限制级</kbd>&lang=<kbd>语言类型 中文是zh</kbd>  
 示例：
