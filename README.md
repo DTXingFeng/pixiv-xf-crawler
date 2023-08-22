@@ -3,11 +3,13 @@
 基于java的pixiv爬虫
 # 主要功能
 1.获得pixiv搜索页面的图片id  
-2.下载指定id图片至本地  
-3.可通关点赞数进行图片筛选  
-4.可使用标签进行搜索  
+2.下载指定id图片至**本地**  
+3.可通关**点赞数**进行图片筛选  
+4.可使用**标签**进行搜索  
 # 特色
 1.使用java开发的本地爬虫软件
+# 使用前准备内容
+1.登录pixiv后将**cookie**复制到**cookie.txt**文件中，本程序使用cookie进行登录
 ## 搜索页api
 https://www.pixiv.net/ajax/search/artworks/ <kbd>搜索内容</kbd>?p=<kbd>页数</kbd>&s_mode=s_tag_full&mode=<kbd>限制级</kbd>&lang=<kbd>语言类型 中文是zh</kbd>  
 示例：
