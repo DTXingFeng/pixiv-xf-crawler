@@ -20,5 +20,5 @@ https://www.pixiv.net/ajax/search/artworks/nahida?&p=2&s_mode=s_tag_full&mode=sa
 ## 下载链接
 https://i.pximg.net/img-original/img/+ <kbd>(图片发布时间的)年/月/日/时/分/秒/</kbd>+<kbd>图片的文件名</kbd>  
 需要请求头
-
+## 应用截图
 ![展示图片](https://github.com/DTXingFeng/pixiv-xf-crawler/blob/main/tp.png)
