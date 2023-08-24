@@ -1,5 +1,4 @@
-# 开发ing。。。
-# pixiv-xf-crawler
+# Pixiv搜索爬虫
 基于java的pixiv爬虫
 # 主要功能
 1. 获得pixiv搜索页面的图片id  
