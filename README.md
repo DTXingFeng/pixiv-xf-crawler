@@ -21,4 +21,4 @@ https://www.pixiv.net/ajax/search/artworks/nahida?&p=2&s_mode=s_tag_full&mode=sa
 https://i.pximg.net/img-original/img/+ <kbd>(图片发布时间的)年/月/日/时/分/秒/</kbd>+<kbd>图片的文件名</kbd>  
 需要请求头
 
-![展示图片]("[https://raw.githubusercontent.com/DTXingFeng/pixiv-xf-crawler/main/tp.png](https://github.com/DTXingFeng/pixiv-xf-crawler/blob/main/tp.png)https://github.com/DTXingFeng/pixiv-xf-crawler/blob/main/tp.png" "展示图片")
+![展示图片](https://github.com/DTXingFeng/pixiv-xf-crawler/blob/main/tp.png)
