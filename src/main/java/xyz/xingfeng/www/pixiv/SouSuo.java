@@ -1,17 +1,17 @@
 package xyz.xingfeng.www.pixiv;
 
+import Swing.MainWindows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tool.FileDo;
 
 import java.io.File;
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class SouSuo {
-    static final String ALL = "all";
-    static final String R18 = "r18";
-    static final String SAFE = "safe";
+    public static final String ALL = "all";
+    public static final String R18 = "r18";
+    public static final String SAFE = "safe";
     private String url = "";
 
     /**
@@ -23,6 +23,10 @@ public class SouSuo {
      * 当前页数默认为1
      */
     Integer page = 1;
+    /**
+     * 筛选条件
+     */
+    int good = 0;
 
     /**
      * 默认url头、尾
@@ -35,11 +39,11 @@ public class SouSuo {
      * 爬取搜索页的构建方法
      * @param s 搜索内容
      */
-    public SouSuo(String s){
+    public SouSuo(String s,int good){
         //生成默认url
         url = https + s + "?&mode=safe" + after;
     }
-    public SouSuo(String s,String mode){
+    public SouSuo(String s,String mode,int good){
         if (mode!=R18 && mode != SAFE && mode != ALL){
             try {
                 throw new Exception("mode不是合法的类型");
@@ -47,12 +51,13 @@ public class SouSuo {
                 throw new RuntimeException(e);
             }
         }
+        this.good = good;
         url = https + s + "?&mode=" + mode + after;
     }
 
     public void getJson(){
         while (true) {
-            GetSouSuoJson getSouSuoJson = new GetSouSuoJson(url + page);
+            GetSouSuoJson getSouSuoJson = new GetSouSuoJson(url + String.valueOf(page));
             //得到json进行处理
             JSONObject jsonObject = new JSONObject(getSouSuoJson.getJson());
             JSONArray jsonArray = jsonObject.getJSONObject("body").getJSONObject("illustManga").getJSONArray("data");
@@ -72,7 +77,7 @@ public class SouSuo {
                     continue;
                 }
                 Artworks artworks = new Artworks(id);
-                artworks.setMinLike(500);
+                artworks.setMinLike(good);
                 artworks.screen();
                 artworks.Download();
                 data.zuijia("\n"+id);
@@ -81,9 +86,16 @@ public class SouSuo {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
             }
             page++;
+            try {
+                Thread.sleep((long) (((int) 1+Math.random()*(4)) * 1000));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+        MainWindows.jB1.setEnabled(true);
     }
 
 }

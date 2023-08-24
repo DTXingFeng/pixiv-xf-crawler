@@ -13,28 +13,35 @@ public class GetArtworksHtml {
     private String html = "";
     private String cookie = new Cofing().getCookie();
     public GetArtworksHtml(String urlString){
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.addRequestProperty("user-agent",userAgent);
-            connection.addRequestProperty("cookie",cookie);
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(20000);
-            connection.setReadTimeout(20000);
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                //System.out.println(response.toString());
-                html = response.toString();
-                reader.close();
+        int num = 0;
+        while (true) {
+            num++;
+            if (num >= 5) {
+                return;
             }
-        }catch(Exception e){
-            throw new RuntimeException(e);
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.addRequestProperty("user-agent", userAgent);
+                connection.addRequestProperty("cookie", cookie);
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(20000);
+                connection.setReadTimeout(20000);
+                int responseCode = connection.getResponseCode();
+                if (responseCode == 200) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    //System.out.println(response.toString());
+                    html = response.toString();
+                    reader.close();
+                }
+            } catch (Exception e) {
+                System.out.println("异常，准备重试");
+            }
         }
     }
 

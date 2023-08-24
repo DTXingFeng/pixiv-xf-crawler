@@ -36,14 +36,27 @@ public class Artworks {
     /**
      * 筛选
      */
-    public void screen(){
-        //解析网页信息
-        Document doc = Jsoup.parse(html);
-        //筛选
-        Elements select = doc.select("meta[name=\"preload-data\"]");
-        String content = select.attr("content");
+    public void screen() {
         //构建json
-        JSONObject jsonObject = new JSONObject(content);
+        JSONObject jsonObject;
+        int x = 0;
+        while (true){
+            if (x > 5){
+                throw new RuntimeException();
+            }
+            //解析网页信息
+            Document doc = Jsoup.parse(html);
+            //筛选
+            Elements select = doc.select("meta[name=\"preload-data\"]");
+            String content = select.attr("content");
+            x++;
+            try {
+                jsonObject = new JSONObject(content);
+                break;
+            } catch (Exception e) {
+                System.out.println();
+            }
+        }
         //获得点赞数
         like = jsonObject.getJSONObject("illust").getJSONObject(id).getInt("bookmarkCount");
         if (like<minLike){
