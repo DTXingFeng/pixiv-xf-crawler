@@ -9,8 +9,10 @@
 5. 可进行**年龄分级**的选择
 # 特色
 1. 使用java开发的本地爬虫软件
-# 使用前准备内容
+# 使用须知
 1. 登录pixiv后将**cookie**复制到**cookie.txt**文件中，本程序使用cookie进行登录
+2. data文件是用来记录已经下载，或已经被筛选的图片
+3. 下载的图片会储存到根目录下的Pixiv文件夹内
 ## 搜索页api
 https://www.pixiv.net/ajax/search/artworks/ <kbd>搜索内容</kbd>?p=<kbd>页数</kbd>&s_mode=s_tag_full&mode=<kbd>限制级</kbd>&lang=<kbd>语言类型 中文是zh</kbd>  
 示例：
