@@ -1,5 +1,5 @@
 # Pixiv搜索爬虫
-基于java的pixiv爬虫
+基于java的pixiv爬虫，使用cookie进行登录操作，下载图片
 # 主要功能
 1. 获得pixiv搜索页面的图片id  
 2. 下载指定id图片至**本地**  
