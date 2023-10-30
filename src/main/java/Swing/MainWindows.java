@@ -1,11 +1,13 @@
 package Swing;
 
+import org.json.JSONObject;
 import xyz.xingfeng.www.pixiv.SouSuo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class MainWindows extends JFrame {
     private final JTextField tagSelect;
@@ -13,7 +15,7 @@ public class MainWindows extends JFrame {
     private final JComboBox<String> age;
     private final JTextField ip;
     private final JTextField port;
-    public static final JButton jB1;
+    public static JButton jB1 = new JButton();
     /**
      * 窗口大小
      */
@@ -134,6 +136,30 @@ public class MainWindows extends JFrame {
         setResizable(false);
         // 窗体关闭后自动结束后台
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //加载保存的数据
+        try {
+            read();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void read() throws IOException {
+        File file = new File("config.json");
+        BufferedReader bufferedReader = null;
+        if (file.exists()){
+            String s;
+            bufferedReader = new BufferedReader(new FileReader(file));
+            StringBuilder st = new StringBuilder();
+            while ((s = bufferedReader.readLine()) != null){
+                 st.append(s);
+            }
+            JSONObject jsonObject = new JSONObject(st.toString());
+            tagSelect.setText(jsonObject.getString("tagSelectText"));
+            goodScreen.setText(String.valueOf(jsonObject.getInt("finalGoodNum")));
+            ip.setText(jsonObject.getString("ip"));
+            port.setText(jsonObject.getString("port"));
+        }
     }
 
     class AListener implements ActionListener{
@@ -171,9 +197,41 @@ public class MainWindows extends JFrame {
                     new LoadCrawler(ip,port,tagSelectText, finalType, finalGoodNum);
                 }
             }).start();
+            //保存这次提供的信息
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ip",ip);
+            jsonObject.put("port",port);
+            jsonObject.put("tagSelectText",tagSelectText);
+            jsonObject.put("finalType",finalType);
+            jsonObject.put("finalGoodNum",finalGoodNum);
+            try {
+                save(jsonObject);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             j.setText("累计下载:"+num);
             jB1.setEnabled(false);
 
+        }
+    }
+
+    public void save(JSONObject jsonObject) throws IOException {
+        File file = new File("config.json");
+        FileWriter fileWriter = null;
+        if (file.exists()){
+            //文件存在
+            fileWriter = new FileWriter(file);
+            fileWriter.write(jsonObject.toString());
+        }else {
+            //文件不存在
+            //创建新文件
+            if (file.createNewFile()){
+                fileWriter = new FileWriter(file);
+                fileWriter.write(jsonObject.toString());
+            }
+        }
+        if (fileWriter != null){
+            fileWriter.close();
         }
     }
 }
