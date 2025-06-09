@@ -52,10 +52,7 @@ public class Artworks {
         if (like < minLike) {
             return;
         }
-        //获得下载链接
-        GetArtworksHtml getArtworksHtml1 = new GetArtworksHtml("https://www.pixiv.net/ajax/illust/" + id + "/pages?lang=zh");
-        JSONObject dowUrl = new JSONObject(getArtworksHtml1.getHtml());
-        JSONArray body = dowUrl.getJSONArray("body");
+        JSONArray body = json.getJSONArray("body");
         for (int i = 0; i < body.length(); i++) {
             String downloadUrl = body.getJSONObject(i).getJSONObject("urls").getString("original");
             downloadUrls.add(downloadUrl);
